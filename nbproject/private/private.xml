@@ -3,17 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Clases/ExamenFisico.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Clases/Consulta.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Clases/Recepcionista.java</file>
             <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Clases/Paciente.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Clases/Diagnostico.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Controladores/ConsultaController.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Clases/Tratamiento.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Clases/HistoriaClinica.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Clases/SignosVitales.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Clases/AntecedentePatologico.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Clases/Medico.java</file>
+            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Controladores/PacienteController.java</file>
+            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Controladores/MedicoController.java</file>
         </group>
     </open-files>
 </project-private>
