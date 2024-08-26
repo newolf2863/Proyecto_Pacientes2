@@ -4,10 +4,7 @@
  */
 package Vistas;
 
-/**
- *
- * @author Issac
- */
+
 public class JFPacientesDoctor extends javax.swing.JFrame {
 
     /**

@@ -4,10 +4,7 @@
  */
 package Clases;
 
-/**
- *
- * @author Issac
- */
+
 public class AntecedentePatologico {
     private String enfermedad;
     private String descripcion;

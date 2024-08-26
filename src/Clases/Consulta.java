@@ -4,10 +4,7 @@
  */
 package Clases;
 
-/**
- *
- * @author Issac
- */
+
 public class Consulta {
     private String motivoConsulta;
     private SignosVitales signosVitales;

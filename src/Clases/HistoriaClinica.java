@@ -6,10 +6,7 @@ package Clases;
 
 import java.util.List;
 
-/**
- *
- * @author Issac
- */
+
 public class HistoriaClinica {
     private String cedulaPaciente;
     private List<AntecedentePatologico> antecedentesPatologicos;

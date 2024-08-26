@@ -4,10 +4,7 @@
  */
 package Clases;
 
-/**
- *
- * @author Issac
- */
+
 public class SignosVitales {
     private double temperatura;
     private double peso;

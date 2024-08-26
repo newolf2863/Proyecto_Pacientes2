@@ -4,10 +4,7 @@
  */
 package Clases;
 
-/**
- *
- * @author Issac
- */
+
 public class Tratamiento {
     private String medicacion;
     private String posologia;

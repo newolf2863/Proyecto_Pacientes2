@@ -6,10 +6,7 @@ package Clases;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Issac
- */
+
 public class Medico {
     private String nombre;
     private String apellidos;

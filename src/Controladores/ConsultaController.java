@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Clases.Consulta;
-/**
- *
- * @author Issac
- */
+
 public class ConsultaController {
     
     private List<Consulta> consultas = new ArrayList<>(); // Lista para almacenar las consultas

@@ -6,10 +6,7 @@ package Controladores.PersistenciaDatos;
 
 import Clases.Paciente;
 
-/**
- *
- * @author Issac
- */
+
 public class ArchivoPacienteDAO {
     public void guardarPaciente(Paciente paciente) {
         // Implementación para guardar el paciente en un archivo plano

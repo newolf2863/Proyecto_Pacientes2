@@ -6,10 +6,7 @@ package Clases;
 
 import java.util.List;
 
-/**
- *
- * @author Issac
- */
+
 public class Paciente {
     private String nombre;
     private String apellidos;

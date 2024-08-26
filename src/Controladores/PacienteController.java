@@ -7,10 +7,7 @@ package Controladores;
 import Clases.Consulta;
 import Clases.HistoriaClinica;
 import Clases.Paciente;
-/**
- *
- * @author Issac
- */
+
 public class PacienteController {
     public void crearPaciente(Paciente paciente) {
         // Implementación para crear un nuevo paciente

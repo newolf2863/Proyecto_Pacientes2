@@ -4,10 +4,7 @@
  */
 package Clases;
 
-/**
- *
- * @author Issac
- */
+
 public class Diagnostico {
     private String codigoCIE;
     private String descripcion;

@@ -4,10 +4,7 @@
  */
 package Vistas;
 
-/**
- *
- * @author Issac
- */
+
 public class JPConsulta extends javax.swing.JFrame {
 
     /**
