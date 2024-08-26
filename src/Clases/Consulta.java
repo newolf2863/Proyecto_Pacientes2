@@ -11,14 +11,18 @@ public class Consulta {
     private ExamenFisico examenFisico;
     private Diagnostico diagnostico;
     private Tratamiento tratamiento;
+    private Paciente paciente; 
     private Medico medico;
 
-    public Consulta(String motivoConsulta, SignosVitales signosVitales, ExamenFisico examenFisico, Diagnostico diagnostico, Tratamiento tratamiento, Medico medico) {
+    public Consulta(String motivoConsulta, SignosVitales signosVitales,
+            ExamenFisico examenFisico, Diagnostico diagnostico, 
+            Tratamiento tratamiento, Paciente paciente, Medico medico) {
         this.motivoConsulta = motivoConsulta;
         this.signosVitales = signosVitales;
         this.examenFisico = examenFisico;
         this.diagnostico = diagnostico;
         this.tratamiento = tratamiento;
+        this.paciente = paciente;
         this.medico = medico;
     }
 
@@ -29,5 +33,24 @@ public class Consulta {
     public void setMotivoConsulta(String motivoConsulta) {
         this.motivoConsulta = motivoConsulta;
     }
+    
+    // Getter para el paciente
+    public Paciente getPaciente() {
+        return paciente;
+    }
 
+    // Setter para el paciente (opcional, si necesitas modificarlo después de crear la consulta)
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
+    
 }

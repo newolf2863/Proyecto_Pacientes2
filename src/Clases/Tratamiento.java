@@ -13,6 +13,4 @@ public class Tratamiento {
         this.medicacion = medicacion;
         this.posologia = posologia;
     }
-    
-    
 }

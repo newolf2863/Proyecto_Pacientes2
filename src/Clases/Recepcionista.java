@@ -4,11 +4,15 @@
  */
 package Clases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Recepcionista {
     private String nombre;
     private String apellidos;
     private String cedula;
+    private List<Consulta> citasCreadas = new ArrayList<>();
 
     public Recepcionista(String nombre, String apellidos, String cedula) {
         this.nombre = nombre;
@@ -17,13 +21,22 @@ public class Recepcionista {
         
     }
     
-    public void crearCita(Paciente paciente, Medico medico, String motivoConsulta) {
-        
-        System.out.println("Consulta creada exitosamente para " + paciente.getNombre() + " con el Dr. " + medico.getNombre());
+    // Método para asignar una cita (paciente a un médico)
+    public void asignarCita(Paciente paciente, Medico medico, 
+            String motivoConsulta) {
+        // Crear una nueva consulta
+        Consulta nuevaConsulta = new Consulta(motivoConsulta, null, null, null, 
+        null, paciente, medico); 
+
+        // Agregar la consulta a la lista de citas creadas
+        citasCreadas.add(nuevaConsulta);
+
+        // Imprimir mensaje de confirmación (puedes personalizarlo)
+        System.out.println("Cita creada exitosamente para " + paciente.getNombre() + " con el Dr. " + medico.getNombre());
     }
 
-    public void asignarDoctor(Paciente paciente, Medico medico) {
-        
-        System.out.println("El Dr. " + medico.getNombre() + " ha sido asignado a " + paciente.getNombre());
+    // Método para ver todas las citas creadas
+    public List<Consulta> verCitasCreadas() {
+        return citasCreadas; // Devuelve una copia de la lista para evitar modificaciones externas
     }
 }

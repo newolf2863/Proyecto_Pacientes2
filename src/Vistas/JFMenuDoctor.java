@@ -36,8 +36,6 @@ public class JFMenuDoctor extends javax.swing.JFrame {
     public JFMenuDoctor(Medico medico) {
         this.medico = medico;
 
-        inventario = this.medico.consultarPaquetesAsignados();
-
         initComponents();
         // Configurar icono de la ventana
         setIconImage(new ImageIcon(getClass().getResource("/iconos/AjustesBest.png")).getImage());

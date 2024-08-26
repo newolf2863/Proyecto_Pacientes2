@@ -5,6 +5,7 @@
 package Clases;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Medico {
@@ -12,23 +13,30 @@ public class Medico {
     private String apellidos;
     private String cedula;
     
-    public ArrayList<Paciente> consultarPaquetesAsignados() {
-        Paciente pacientes = null;
-        if(pacientes == null){
-            return null;
-        }
-        return null;
-        //return asignacionPaquete.obtenerPaquetesVehiculo(paciente);
-    }
-
+    private ArrayList<Paciente> pacientesAsignados = new ArrayList<>();
+    
     public Medico(String nombre, String apellidos, String cedula) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.cedula = cedula;
     }
     
-    
+    public String obtenerDatosMedico() {
+        return "Nombre: " + nombre + "\n" +
+               "Apellidos: " + apellidos + "\n" +
+               "Cédula: " + cedula;
+    }    
 
+    // Método para consultar los pacientes asignados al médico
+    public List<Paciente> consultarPacientesAsignados() {
+        return pacientesAsignados; // Devuelve una copia de la lista para evitar modificaciones externas
+    }
+
+    // Método para asignar un paciente al médico
+    public void asignarPaciente(Paciente paciente) {
+        pacientesAsignados.add(paciente);
+    }
+    
     public String getNombre() {
         return nombre;
     }

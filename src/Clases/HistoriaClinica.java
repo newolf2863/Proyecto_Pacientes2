@@ -6,7 +6,6 @@ package Clases;
 
 import java.util.List;
 
-
 public class HistoriaClinica {
     private String cedulaPaciente;
     private List<AntecedentePatologico> antecedentesPatologicos;
@@ -22,7 +21,5 @@ public class HistoriaClinica {
 
     public void setCedulaPaciente(String cedulaPaciente) {
         this.cedulaPaciente = cedulaPaciente;
-    }
-    
-    
+    }  
 }
