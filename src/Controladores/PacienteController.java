@@ -18,8 +18,9 @@ public class PacienteController {
 
     public Paciente buscarPacientePorCedula(String cedula) {
         // Implementación para buscar un paciente por cédula
-        return null;
+        System.out.println("Hola Mundo");
         // Implementación para buscar un paciente por cédula
+        return null;
     }
 
     public void actualizarHistoriaClinica(String cedulaPaciente, Consulta nuevaConsulta) {
