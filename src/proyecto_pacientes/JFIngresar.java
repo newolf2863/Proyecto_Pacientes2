@@ -4,24 +4,22 @@
  */
 package proyecto_pacientes;
 
+import Clases.Medico;
+import Controladores.MedicoController;
 import Vistas.Doctor.*;
 import Vistas.Doctor.*;
+import Vistas.Secretaria.JFMenuSecretaria;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- * Esta clase representa la interfaz gráfica de la ventana de inicio de sesión.
- * Contiene métodos para la interacción con la base de datos y la validación de
- * usuarios.
- *
- * @autor USUARIO
- */
+
 public class JFIngresar extends javax.swing.JFrame {
 
     // Nombre de la base de datos a la que se conecta la aplicación
@@ -29,10 +27,6 @@ public class JFIngresar extends javax.swing.JFrame {
     // Variables para el manejo de la posición del mouse al arrastrar la ventana
     int xMouse, yMouse;
 
-    /**
-     * Constructor de la clase JFIngresar.
-     * Inicializa los componentes y configura el comportamiento de la ventana.
-     */
     public JFIngresar() {
         // Inicializa los componentes de la interfaz gráfica
         initComponents();
@@ -46,26 +40,11 @@ public class JFIngresar extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Configura el estilo del texto de "olvidasteContra" para cuando el mouse está
         // encima
-        Font originalFont = olvidasteContra.getFont();
-        Font boldFont = new Font(originalFont.getName(), Font.BOLD, originalFont.getSize());
-        Color originalColor = olvidasteContra.getForeground();
-        Color hoverColor = new Color(0, 0, 255);
+        
 
         // Añade un mouse listener para cambiar el estilo del texto cuando el mouse
         // entra o sale
-        olvidasteContra.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                olvidasteContra.setFont(boldFont);
-                olvidasteContra.setForeground(hoverColor);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                olvidasteContra.setFont(originalFont);
-                olvidasteContra.setForeground(originalColor);
-            }
-        });
+        
     }
 // puedes funcionar porfavor
     /**
@@ -115,13 +94,11 @@ public class JFIngresar extends javax.swing.JFrame {
         jBIngresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jBMostrarC = new javax.swing.JButton();
-        olvidasteContra = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        botonCliente = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
@@ -268,16 +245,6 @@ public class JFIngresar extends javax.swing.JFrame {
         });
         bg.add(jBMostrarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 160, 40));
 
-        olvidasteContra.setForeground(new java.awt.Color(102, 153, 255));
-        olvidasteContra.setText("¿Olvidaste tu contraseña o usuario?");
-        olvidasteContra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        olvidasteContra.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                olvidasteContraMouseClicked(evt);
-            }
-        });
-        bg.add(olvidasteContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
-
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/gestionDePaquetes.png"))); // NOI18N
         bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 440, 120));
 
@@ -290,16 +257,6 @@ public class JFIngresar extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/user.png"))); // NOI18N
         bg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
         bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 340, -1));
-
-        botonCliente.setForeground(new java.awt.Color(102, 153, 255));
-        botonCliente.setText("Verificar paquete o quejas");
-        botonCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botonCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonClienteMouseClicked(evt);
-            }
-        });
-        bg.add(botonCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 330, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pass.png"))); // NOI18N
@@ -321,7 +278,36 @@ public class JFIngresar extends javax.swing.JFrame {
      * @param evt El evento de clic
      */
     private void jBIngresarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBIngresarActionPerformed
-        
+        String usuario = jTFUser.getText();
+        String contrasenia = new String(jTFPassword.getPassword()); // Obtener contraseña de forma segura
+
+        if (usuario.equals("secretaria") && contrasenia.equals("123")) {
+            // Login de secretaria exitoso
+            JFMenuSecretaria menuSecretaria = new JFMenuSecretaria();
+            menuSecretaria.setVisible(true);
+            this.dispose(); // Cierra la ventana de login
+        } else {
+            // Intentar login como médico
+            MedicoController medicoController = new MedicoController();
+            List<Medico> medicos = medicoController.obtenerMedicosRegistrados();
+
+            // Verificar si el nombre existe en algún médico registrado
+            boolean nombreExiste = medicos.stream().anyMatch(medico -> medico.getNombre().equals(usuario));
+
+            if (nombreExiste) {
+                for (Medico medico : medicos) {
+                    if (medico.getNombre().equals(usuario) && contrasenia.equals(medico.getContrasenia())) {
+                        // Login de médico exitoso
+                        JFMenuDoctor menuDoctor = new JFMenuDoctor(medico);
+                        menuDoctor.setVisible(true);
+                        this.dispose();
+                        return; // Salir del método después de un login exitoso
+                    }
+                }
+            } 
+            // Credenciales incorrectas
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+        }
     }// GEN-LAST:event_jBIngresarActionPerformed
 
     /**
@@ -346,16 +332,7 @@ public class JFIngresar extends javax.swing.JFrame {
         
     }
 
-    /**
-     * Maneja el evento de tipeo en el campo de texto del usuario.
-     * Restringe la entrada de caracteres para permitir solo letras, números y el
-     * carácter 'ñ'.
-     * Muestra un mensaje de advertencia si el usuario intenta ingresar un carácter
-     * no permitido.
-     *
-     * @param evt El evento de tipeo generado al presionar una tecla en el campo de
-     *            texto.
-     */
+    
     private void jTFUserKeyTyped(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTFUserKeyTyped
         char c = evt.getKeyChar();
         if (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
@@ -583,7 +560,6 @@ public class JFIngresar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
-    private javax.swing.JLabel botonCliente;
     private javax.swing.JPanel exitP;
     private javax.swing.JLabel exitTXT;
     private javax.swing.JButton jBIngresar;
@@ -600,6 +576,5 @@ public class JFIngresar extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPasswordField jTFPassword;
     private javax.swing.JTextField jTFUser;
-    private javax.swing.JLabel olvidasteContra;
     // End of variables declaration//GEN-END:variables
 }

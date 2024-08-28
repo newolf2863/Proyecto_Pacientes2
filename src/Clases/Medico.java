@@ -12,13 +12,15 @@ public class Medico {
     private String nombre;
     private String apellidos;
     private String cedula;
+    private String contrasenia;
     
     private ArrayList<Paciente> pacientesAsignados = new ArrayList<>();
     
-    public Medico(String nombre, String apellidos, String cedula) {
+    public Medico(String nombre, String apellidos, String cedula, String contrasenia) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.cedula = cedula;
+        this.contrasenia = contrasenia;
     }
     
     public String obtenerDatosMedico() {
@@ -60,6 +62,12 @@ public class Medico {
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+    
+    
     
     
 }

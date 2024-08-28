@@ -36,8 +36,8 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
      * 
      * @param conductor El conductor asociado a la sesión actual.
      */
-    public JFMenuSecretaria(Medico medico) {
-        this.medico = medico;
+    public JFMenuSecretaria() {
+        
 
         initComponents();
         // Configurar icono de la ventana
@@ -62,10 +62,9 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
         clickedPanels[0] = Clicked1;
         clickedPanels[1] = Clicked2;
         clickedPanels[2] = Clicked3;
-        String nombresMedico = medico.getNombre();
-        String nombreMedico = obtenerPrimerNombre(nombresMedico);
+        
         desvanecer();
-        jLInicio.setText("Bienvenido/a " + nombreMedico);
+        jLInicio.setText("Bienvenido/a ");
     }
 
     public String obtenerPrimerNombre(String nombres) {
@@ -146,7 +145,7 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        menuHistorial = new javax.swing.JLabel();
+        menuDoctor = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         panelContent = new javax.swing.JPanel();
         JPGPanelContenedor = new javax.swing.JPanel();
@@ -193,7 +192,7 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
         menuPaciente.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 16)); // NOI18N
         menuPaciente.setForeground(new java.awt.Color(255, 255, 255));
         menuPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/administracion.png"))); // NOI18N
-        menuPaciente.setText("Consulta Paciente");
+        menuPaciente.setText("Paciente");
         menuPaciente.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         menuPaciente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menuPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -301,25 +300,25 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
 
         jPanel1.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, 60));
 
-        menuHistorial.setBackground(new java.awt.Color(41, 39, 40));
-        menuHistorial.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 16)); // NOI18N
-        menuHistorial.setForeground(new java.awt.Color(255, 255, 255));
-        menuHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Bar_Chart_32px.png"))); // NOI18N
-        menuHistorial.setText(" Historial Paciente");
-        menuHistorial.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        menuHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        menuHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuDoctor.setBackground(new java.awt.Color(41, 39, 40));
+        menuDoctor.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 16)); // NOI18N
+        menuDoctor.setForeground(new java.awt.Color(255, 255, 255));
+        menuDoctor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/administracion.png"))); // NOI18N
+        menuDoctor.setText("Doctor");
+        menuDoctor.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        menuDoctor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        menuDoctor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuHistorialMouseClicked(evt);
+                menuDoctorMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                menuHistorialMouseEntered(evt);
+                menuDoctorMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                menuHistorialMouseExited(evt);
+                menuDoctorMouseExited(evt);
             }
         });
-        jPanel1.add(menuHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 210, 52));
+        jPanel1.add(menuDoctor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 210, 52));
 
         PanelHome.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 770));
 
@@ -342,8 +341,8 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
 
         jLInicio.setFont(new java.awt.Font("Tahoma", 0, 64)); // NOI18N
         jLInicio.setForeground(new java.awt.Color(102, 102, 102));
-        jLInicio.setText("Gestión de Pacientes");
-        JPGPanelContenedor.add(jLInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, -1, -1));
+        jLInicio.setText("Gestión de Pacientes y Doctores");
+        JPGPanelContenedor.add(jLInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, -1, -1));
 
         panelContent.add(JPGPanelContenedor, "card1");
 
@@ -398,7 +397,7 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
         contenido.show(panelContent, "card1");
         cambiarSeccionMenu(0);
         menuPaciente.setBackground(Color.decode("#494848"));
-        JFrame ventanaPaciente = new JFPacientesDoctor();
+        JFrame ventanaPaciente = new JFPaciente();
         abrirFormHijo(ventanaPaciente);
         jLInicio.setText("Paquetes");
     }// GEN-LAST:event_menuPacienteMouseClicked
@@ -467,24 +466,20 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
         return valores;
     }
 
-    private void menuHistorialMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_menuHistorialMouseClicked
+    private void menuDoctorMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_menuDoctorMouseClicked
         contenido.show(panelContent, "card1");
         cambiarSeccionMenu(1);
         menuPaciente.setBackground(Color.decode("#494848"));
         JFrame ventanaConsulta = new JPConsulta();
         abrirFormHijo(ventanaConsulta);
         jLInicio.setText("Paquetes");
-    }// GEN-LAST:event_menuHistorialMouseClicked
+    }// GEN-LAST:event_menuDoctorMouseClicked
 
-    private void menuHistorialMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_menuHistorialMouseEntered
-        menuHistorial.setBackground(Color.decode("#333333"));
-        menuHistorial.setOpaque(true);
-    }// GEN-LAST:event_menuHistorialMouseEntered
+    private void menuDoctorMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_menuDoctorMouseEntermenuDoctornuHistorial.setBackground(Color.decode("#333333")menuDoctornuHistorial.setOpaque(true);
+    }// GEN-LAST:event_menuDoctorMouseEntered
 
-    private void menuHistorialMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_menuHistorialMouseExited
-        menuHistorial.setBackground(Color.decode("#292728"));
-        menuHistorial.setOpaque(true);
-    }// GEN-LAST:event_menuHistorialMouseExited
+    private void menuDoctorMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_menuDoctorMouseExitmenuDoctornuHistorial.setBackground(Color.decode("#292728")menuDoctornuHistorial.setOpaque(true);
+    }// GEN-LAST:event_menuDoctorMouseExited
 
 
     private static String mostrarFechaHora(Date fechaYHora, String formato, Locale local) {
@@ -517,7 +512,7 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel menuHistorial;
+    private javax.swing.JLabel menuDoctor;
     private javax.swing.JLabel menuLogout;
     private javax.swing.JLabel menuPaciente;
     private javax.swing.JPanel panelContent;
