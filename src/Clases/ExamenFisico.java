@@ -7,7 +7,7 @@ package Clases;
 
 public class ExamenFisico {
     private String hallazgos;
-
+    
     public ExamenFisico(String hallazgos) {
         this.hallazgos = hallazgos;
     }

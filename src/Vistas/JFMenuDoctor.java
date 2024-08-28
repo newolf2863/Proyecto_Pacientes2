@@ -59,10 +59,10 @@ public class JFMenuDoctor extends javax.swing.JFrame {
         clickedPanels[0] = Clicked1;
         clickedPanels[1] = Clicked2;
         clickedPanels[2] = Clicked3;
-        String nombresConductor = medico.getNombre();
-        String nombreConductor = obtenerPrimerNombre(nombresConductor);
+        String nombresMedico = medico.getNombre();
+        String nombreMedico = obtenerPrimerNombre(nombresMedico);
         desvanecer();
-        jLInicio.setText("Bienvenido/a " + nombreConductor);
+        jLInicio.setText("Bienvenido/a " + nombreMedico);
     }
 
     public String obtenerPrimerNombre(String nombres) {
@@ -450,24 +450,13 @@ public class JFMenuDoctor extends javax.swing.JFrame {
         this.setLocation(x - xMouse, y - yMouse);
     }// GEN-LAST:event_jPanel3MouseDragged
 
-    /**
-     * Método para verificar la complejidad de una contraseña.
-     * 
-     * @param password La contraseña a verificar.
-     * @return true si la contraseña cumple con los requisitos, false de lo
-     *         contrario.
-     */
+
     public boolean verificarContra(String password) {
         String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
         return password.matches(regex);
     }
 
-    /**
-     * Método para cambiar todos los valores de un array de Boolean a true.
-     * 
-     * @param valores El array de Boolean a modificar.
-     * @return El array modificado con todos los valores en true.
-     */
+
     public Boolean[] cambiarValoresVerdad(Boolean[] valores) {
         for (int i = 0; i < valores.length; i++) {
             valores[i] = true;
@@ -494,14 +483,7 @@ public class JFMenuDoctor extends javax.swing.JFrame {
         menuHistorial.setOpaque(true);
     }// GEN-LAST:event_menuHistorialMouseExited
 
-    /**
-     * Método para mostrar la fecha y hora en un formato específico.
-     * 
-     * @param fechaYHora La fecha y hora a formatear.
-     * @param formato    El formato en el que se debe mostrar la fecha y hora.
-     * @param local      La configuración regional para formatear la fecha y hora.
-     * @return Una cadena que representa la fecha y hora formateada.
-     */
+
     private static String mostrarFechaHora(Date fechaYHora, String formato, Locale local) {
         String fechaString;
         SimpleDateFormat formateador;

@@ -19,12 +19,12 @@ public class PacienteController {
     // Método para registrar un paciente en el archivo de texto
     public void registrarPaciente(Paciente paciente) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO_PACIENTES, true))) { 
-            bw.write(paciente.getNombre() + "," + 
-                     paciente.getApellidos() + "," + 
-                     paciente.getCedula() + "," + 
-                     paciente.getGenero() + "," + 
-                     paciente.getDireccion() + "," +
-                     paciente.getTelefono() + "," +
+            bw.write(paciente.getNombre() + ";" + 
+                     paciente.getApellidos() + ";" + 
+                     paciente.getCedula() + ";" + 
+                     paciente.getGenero() + ";" + 
+                     paciente.getDireccion() + ";" +
+                     paciente.getTelefono() + ";" +
                      paciente.getCorreoElectronico());
             bw.newLine();
         } catch (IOException e) {
@@ -38,7 +38,7 @@ public class PacienteController {
         try (BufferedReader br = new BufferedReader(new FileReader(ARCHIVO_PACIENTES))) {
             String linea;
             while ((linea = br.readLine()) != null) {
-                String[] datos = linea.split(",");
+                String[] datos = linea.split(";");
                 if (datos.length == 7) { // Verificar que la línea tenga los 7 datos esperados
                     pacientes.add(new Paciente(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6]));
                 }
@@ -49,6 +49,15 @@ public class PacienteController {
         return pacientes;
     }
 
+    public Paciente buscarPacientePorCedula(String cedula) {
+        List<Paciente> pacientes = obtenerPacientesRegistrados(); // Asegúrate de tener este método implementado
+        for (Paciente paciente : pacientes) {
+            if (paciente.getCedula().equals(cedula)) {
+                return paciente;
+        }
+    }
+    return null; // Paciente no encontrado
+}
 
     public void actualizarHistoriaClinica(String cedulaPaciente, Consulta nuevaConsulta) {
         // Implementación para actualizar la historia clínica de un paciente

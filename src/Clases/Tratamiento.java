@@ -13,4 +13,14 @@ public class Tratamiento {
         this.medicacion = medicacion;
         this.posologia = posologia;
     }
+
+    public String getMedicacion() {
+        return medicacion;
+    }
+
+    public String getPosologia() {
+        return posologia;
+    }
+
+    
 }

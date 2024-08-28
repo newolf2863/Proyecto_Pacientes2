@@ -52,5 +52,37 @@ public class Consulta {
         this.medico = medico;
     }
 
+    public SignosVitales getSignosVitales() {
+        return signosVitales;
+    }
+
+    public void setSignosVitales(SignosVitales signosVitales) {
+        this.signosVitales = signosVitales;
+    }
+
+    public ExamenFisico getExamenFisico() {
+        return examenFisico;
+    }
+
+    public void setExamenFisico(ExamenFisico examenFisico) {
+        this.examenFisico = examenFisico;
+    }
+
+    public Diagnostico getDiagnostico() {
+        return diagnostico;
+    }
+
+    public void setDiagnostico(Diagnostico diagnostico) {
+        this.diagnostico = diagnostico;
+    }
+
+    public Tratamiento getTratamiento() {
+        return tratamiento;
+    }
+
+    public void setTratamiento(Tratamiento tratamiento) {
+        this.tratamiento = tratamiento;
+    }
+
     
 }

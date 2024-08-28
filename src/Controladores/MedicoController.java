@@ -15,7 +15,7 @@ public class MedicoController {
     // Método para registrar un médico en el archivo de texto
     public void registrarMedico(Medico medico) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO_MEDICOS, true))) { // true para añadir al final del archivo
-            bw.write(medico.getNombre() + "," + medico.getApellidos() + "," + medico.getCedula());
+            bw.write(medico.getNombre() + ";" + medico.getApellidos() + ";" + medico.getCedula());
             bw.newLine();
         } catch (IOException e) {
             System.err.println("Error al registrar el médico: " + e.getMessage());
@@ -28,7 +28,7 @@ public class MedicoController {
         try (BufferedReader br = new BufferedReader(new FileReader(ARCHIVO_MEDICOS))) {
             String linea;
             while ((linea = br.readLine()) != null) {
-                String[] datos = linea.split(",");
+                String[] datos = linea.split(";");
                 if (datos.length == 3) { // Verificar que la línea tenga los 3 datos esperados
                     medicos.add(new Medico(datos[0], datos[1], datos[2]));
                 }
@@ -37,5 +37,15 @@ public class MedicoController {
             System.err.println("Error al obtener los médicos registrados: " + e.getMessage());
         }
         return medicos;
+    }
+    // En MedicoController
+    public Medico buscarMedicoPorCedula(String cedula) {
+        List<Medico> medicos = obtenerMedicosRegistrados(); // Asegúrate de tener este método implementado
+        for (Medico medico : medicos) {
+            if (medico.getCedula().equals(cedula)) {
+                return medico;
+            }
+        }
+        return null; // Médico no encontrado
     }
 }

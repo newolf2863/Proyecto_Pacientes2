@@ -11,12 +11,28 @@ public class SignosVitales {
     private double presionArterial;
     private double saturacionOxigeno;
 
-    public SignosVitales(double temperatura, double peso, double presionArterial, double saturacionOxigeno) {
+    public SignosVitales(double temperatura, double peso, double presionArterial,
+            double saturacionOxigeno) {
         this.temperatura = temperatura;
         this.peso = peso;
         this.presionArterial = presionArterial;
         this.saturacionOxigeno = saturacionOxigeno;
+    }   
+
+    public double getTemperatura() {
+        return temperatura;
     }
-    
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public double getPresionArterial() {
+        return presionArterial;
+    }
+
+    public double getSaturacionOxigeno() {
+        return saturacionOxigeno;
+    }
     
 }
