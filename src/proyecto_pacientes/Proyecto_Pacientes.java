@@ -7,7 +7,7 @@ package proyecto_pacientes;
 import Clases.*;
 import Controladores.AntecedentePatologicoController;
 import Controladores.*;
-import Vistas.JFMenuDoctor;
+import Vistas.Doctor.JFMenuDoctor;
 import java.util.List;
 
 public class Proyecto_Pacientes {
@@ -75,16 +75,16 @@ public class Proyecto_Pacientes {
 }
         
         AntecedentePatologico antecedente1_paciente1 = new AntecedentePatologico(diagnostico1.getCodigoCIE(), examenFisico1.getHallazgos(), paciente1);
-        antecedenteController.registrarAntecedentePatologico(antecedente1_paciente1);
+        antecedenteController.registrarAntecedentePatologico(antecedente1_paciente1,null);
 
         Diagnostico diagnostico2_paciente1 = new Diagnostico("I10", "Hipertensión esencial (primaria)");
 ExamenFisico examenFisico2_paciente1 = new ExamenFisico("Presión arterial elevada");
 AntecedentePatologico antecedente2_paciente1 = new AntecedentePatologico(diagnostico2_paciente1.getCodigoCIE(), examenFisico2_paciente1.getHallazgos(), paciente1);
-antecedenteController.registrarAntecedentePatologico(antecedente2_paciente1);
+antecedenteController.registrarAntecedentePatologico(antecedente2_paciente1,null);
 
 
         AntecedentePatologico antecedente1_paciente2 = new AntecedentePatologico(diagnostico2.getCodigoCIE(), examenFisico2.getHallazgos(), paciente2);
-antecedenteController.registrarAntecedentePatologico(antecedente1_paciente2);
+antecedenteController.registrarAntecedentePatologico(antecedente1_paciente2,null);
              
         
         
@@ -98,6 +98,21 @@ for (AntecedentePatologico antecedente : antecedentes) {
     System.out.println("Hallazgos: " + antecedente.getDescripcion()); // Recuerda que 'descripcion' ahora almacena los hallazgos
     System.out.println("------------------------");
 }
+
+//     Paciente paciente = new Paciente("Juan", "Pérez", "123456789", "Masculino", "Calle Ejemplo 123", "1234567890", "juan@example.com");
+//Paciente familiar = new Paciente("María", "Pérez", "987654321", "Femenino", "Otra Calle 456", "0987654321", "maria@example.com");
+//Diagnostico diagnostico = new Diagnostico("J02.9", "Faringitis aguda, no especificada");
+//ExamenFisico examenFisico = new ExamenFisico("Garganta inflamada, fiebre leve");
+//Diagnostico diagnostico0 = new Diagnostico("J02.9", "Faringitis aguda, especificada");
+//ExamenFisico examenFisico0 = new ExamenFisico("Garganta inflamada, fiebre");
+//
+//AntecedentePatologico antecedente = new AntecedentePatologico(diagnostico.getCodigoCIE(), examenFisico.getHallazgos(), paciente);
+//AntecedentePatologico antecedente0 = new AntecedentePatologico(diagnostico0.getCodigoCIE(), examenFisico0.getHallazgos(), familiar);
+//
+//
+//AntecedentePatologicoController controlador = new AntecedentePatologicoController();
+//controlador.registrarAntecedentePatologico(antecedente, familiar); // Se pasa el familiar como argumento
+//controlador.registrarAntecedentePatologico(antecedente0, null);
 
 //        JFMenuDoctor menu = new JFMenuDoctor(medico);
 //        menu.setVisible(true);

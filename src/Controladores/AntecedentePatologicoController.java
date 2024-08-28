@@ -13,18 +13,22 @@ import java.util.List;
 public class AntecedentePatologicoController {
     private static final String ARCHIVO_ANTECEDENTES = "C:\\Users\\Issac\\Documents\\NetBeansProjects\\Proyecto_Pacientes\\src\\Datos\\antecedentes.txt";
 
-    public void registrarAntecedentePatologico(AntecedentePatologico antecedente) {
+     public void registrarAntecedentePatologico(AntecedentePatologico antecedente, Paciente familiar) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO_ANTECEDENTES, true))) {
-            // Formato de guardado: paciente.cedula,codigoCIE,descripcionDiagnostico,hallazgosExamenFisico
+            // Formato de guardado: paciente.cedula;codigoCIE;hallazgosExamenFisico;familiar.cedula (si existe)
             bw.write(antecedente.getPaciente().getCedula() + ";" +
-                    antecedente.getEnfermedad() + ";" + // Ahora almacena el codigoCIE
-                    antecedente.getDescripcion());      // Ahora almacena los hallazgos del examen físico
+                    antecedente.getEnfermedad() + ";" + 
+                    antecedente.getDescripcion() + ";");
+
+            if (familiar != null) {
+                bw.write(familiar.getCedula()); 
+            }
+
             bw.newLine();
         } catch (IOException e) {
             System.err.println("Error al registrar el antecedente patológico: " + e.getMessage());
         }
     }
-    
     public List<AntecedentePatologico> obtenerAntecedentesRegistrados() {
         List<AntecedentePatologico> antecedentes = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(ARCHIVO_ANTECEDENTES))) {

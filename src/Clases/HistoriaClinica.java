@@ -8,21 +8,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class HistoriaClinica {
-    private String cedulaPaciente;
+    private Paciente paciente;
     private List<AntecedentePatologico> antecedentesPatologicos;
     private List<Consulta> consultas;
 
-    public HistoriaClinica(String cedulaPaciente, List<AntecedentePatologico> antecedentesPatologicos, List<Consulta> consultas) {
-        this.cedulaPaciente = cedulaPaciente;
+    public HistoriaClinica(Paciente paciente, List<AntecedentePatologico> antecedentesPatologicos, List<Consulta> consultas) {
+        this.paciente = paciente;
         this.antecedentesPatologicos = antecedentesPatologicos;
         this.consultas = consultas;
     }
 
-    public String getCedulaPaciente() {
-        return cedulaPaciente;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setCedulaPaciente(String cedulaPaciente) {
-        this.cedulaPaciente = cedulaPaciente;
-    }  
+    public List<AntecedentePatologico> getAntecedentesPatologicos() {
+        return antecedentesPatologicos;
+    }
+
+    public List<Consulta> getConsultas() {
+        return consultas;
+    }
+    
 }

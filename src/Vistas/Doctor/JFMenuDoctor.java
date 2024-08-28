@@ -1,4 +1,4 @@
-package Vistas;
+package Vistas.Doctor;
 
 import java.awt.CardLayout;
 import java.awt.Color;
