@@ -4,7 +4,16 @@
  */
 package Vistas.Secretaria;
 
+import Clases.Medico;
+import Controladores.MedicoController;
 import Vistas.Doctor.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import validaciones.*;
 
 
@@ -23,8 +32,54 @@ public class JFDoctor extends javax.swing.JFrame {
     
     public JFDoctor() {
         initComponents();
+        
+        jTFBusquedaCI.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                refrescarTablaMedicos(); 
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                refrescarTablaMedicos();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                refrescarTablaMedicos();
+            }
+        });        
+        refrescarTablaMedicos();
     }
 
+    private void refrescarTablaMedicos() {
+        DefaultTableModel model = new DefaultTableModel();
+        jTMedicos.setModel(model);
+        String[] columnNames = {
+                "Cédula", "Nombres", "Apellidos" 
+        };
+        model.setColumnIdentifiers(columnNames);
+
+        String cedulaBusqueda = jTFBusquedaCI.getText(); // Asumiendo que usas el mismo campo de búsqueda
+        List<Medico> medicos;
+
+        if (cedulaBusqueda.isEmpty()) {
+            // Si el campo de búsqueda está vacío, mostrar todos los médicos
+            medicos = new MedicoController().obtenerMedicosRegistrados();
+        } else {
+            // Si hay texto en el campo de búsqueda, filtrar por cédula
+            Medico medicoEncontrado = new MedicoController().buscarMedicoPorCedula(cedulaBusqueda);
+            medicos = (medicoEncontrado != null) ? Arrays.asList(medicoEncontrado) : new ArrayList<>();
+        }
+
+        for (Medico medico : medicos) {
+            model.addRow(new Object[]{
+                    medico.getCedula(),
+                    medico.getNombre(),
+                    medico.getApellidos()
+            });
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,16 +99,15 @@ public class JFDoctor extends javax.swing.JFrame {
         jTFNombresR = new javax.swing.JTextField();
         jLabel89 = new javax.swing.JLabel();
         jTFApellidos = new javax.swing.JTextField();
-        jLabel87 = new javax.swing.JLabel();
-        jLabel71 = new javax.swing.JLabel();
-        jTFTelefono = new javax.swing.JTextField();
-        jLabel73 = new javax.swing.JLabel();
-        jTFDireccion = new javax.swing.JTextField();
         jLabel88 = new javax.swing.JLabel();
-        jTFCorreo = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jTFContrasenia = new javax.swing.JTextField();
         jLTipoCli1 = new javax.swing.JLabel();
+        jBGuardarMedico = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTMedicos = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTFBusquedaCI = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,51 +174,28 @@ public class JFDoctor extends javax.swing.JFrame {
             }
         });
 
-        jLabel87.setText("Genero");
+        jLabel88.setText("Contraseña");
 
-        jLabel71.setText("Teléfono");
-
-        jTFTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTFContrasenia.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTFTelefonoFocusLost(evt);
+                jTFContraseniaFocusLost(evt);
             }
         });
-        jTFTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTFContrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTFTelefonoKeyReleased(evt);
+                jTFContraseniaKeyReleased(evt);
             }
         });
-
-        jLabel73.setText("Dirección");
-
-        jTFDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTFDireccionFocusLost(evt);
-            }
-        });
-        jTFDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTFDireccionKeyReleased(evt);
-            }
-        });
-
-        jLabel88.setText("Correo");
-
-        jTFCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTFCorreoFocusLost(evt);
-            }
-        });
-        jTFCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTFCorreoKeyReleased(evt);
-            }
-        });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "masculino", "femenino", " " }));
 
         jLTipoCli1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLTipoCli1.setText("REGISTRO PACIENTE");
+        jLTipoCli1.setText("REGISTRO MEDICO");
+
+        jBGuardarMedico.setText("Guardar Medico");
+        jBGuardarMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarMedicoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -174,89 +205,89 @@ public class JFDoctor extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(77, 77, 77)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel66)
-                                            .addComponent(jLTipoCli)
-                                            .addComponent(jLabel89))
-                                        .addGap(239, 239, 239))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTFNombresR, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                                            .addComponent(jTFCI)
-                                            .addComponent(jTFApellidos))
-                                        .addGap(106, 106, 106)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel73)
-                                    .addComponent(jTFTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel71)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTFCorreo)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(133, 133, 133)))))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLTipoCli1)
+                            .addComponent(jLabel66)
+                            .addComponent(jLTipoCli)
+                            .addComponent(jLabel89)
+                            .addComponent(jTFNombresR, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                            .addComponent(jTFCI)
+                            .addComponent(jTFApellidos)
+                            .addComponent(jTFContrasenia)
+                            .addComponent(jLabel88)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jLTipoCli1)))
-                .addContainerGap(379, Short.MAX_VALUE))
+                        .addGap(112, 112, 112)
+                        .addComponent(jBGuardarMedico)))
+                .addContainerGap(661, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLTipoCli1)
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLTipoCli)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTFCI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel88)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTFCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel66)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFNombresR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel89)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel71)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel73)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLTipoCli1)
+                .addGap(31, 31, 31)
+                .addComponent(jLTipoCli)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTFCI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel66)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel87)
+                .addComponent(jTFNombresR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel89)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(146, 146, 146))
+                .addComponent(jTFApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel88)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTFContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jBGuardarMedico)
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Registrar", jPanel1);
+
+        jTMedicos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTMedicos);
+
+        jLabel1.setText("Busqueda CI:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 920, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTFBusquedaCI, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(312, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 463, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTFBusquedaCI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Lista", jPanel2);
@@ -294,32 +325,6 @@ public class JFDoctor extends javax.swing.JFrame {
     private void jPanel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel3MousePressed
-
-    private void jTFCorreoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFCorreoKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFCorreoKeyReleased
-
-    private void jTFCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFCorreoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFCorreoFocusLost
-
-    private void jTFDireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFDireccionKeyReleased
-        direccionEsValida = validarRegistroF.camposDeRegistros(jTFDireccion, "direccion");
-    }//GEN-LAST:event_jTFDireccionKeyReleased
-
-    private void jTFDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFDireccionFocusLost
-        direccionEsValida = validarRegistroF.camposDeRegistros(jTFDireccion, "direccion");
-        validarRegistroF.hideTooltip();
-    }//GEN-LAST:event_jTFDireccionFocusLost
-
-    private void jTFTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFTelefonoKeyReleased
-        telefonoEsValido = validarRegistroF.camposDeRegistros(jTFTelefono, "telefono");
-    }//GEN-LAST:event_jTFTelefonoKeyReleased
-
-    private void jTFTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFTelefonoFocusLost
-        telefonoEsValido = validarRegistroF.camposDeRegistros(jTFTelefono, "telefono");
-        validarRegistroF.hideTooltip();
-    }//GEN-LAST:event_jTFTelefonoFocusLost
 
     private void jTFApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFApellidosKeyTyped
         int maxLength = 64; // Límite de longitud de caracteres
@@ -361,6 +366,50 @@ public class JFDoctor extends javax.swing.JFrame {
         cedulaEsValida = validarRegistroF.camposDeRegistros(jTFCI, "cedula");
         validarRegistroF.hideTooltip();
     }//GEN-LAST:event_jTFCIFocusLost
+
+    private void jTFContraseniaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFContraseniaKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFContraseniaKeyReleased
+
+    private void jTFContraseniaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFContraseniaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFContraseniaFocusLost
+
+    private void jBGuardarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarMedicoActionPerformed
+        // Obtener los datos del médico desde los campos de texto
+        String cedula = jTFCI.getText();
+        String nombres = jTFNombresR.getText();
+        String apellidos = jTFApellidos.getText();
+        String contrasenia = jTFContrasenia.getText(); // Obtener contraseña de forma segura
+
+        ValidadorDeRegistros camposDeRegistros = new ValidadorDeRegistros();
+
+        // Validar los datos (puedes usar la función camposDeRegistros si la tienes implementada)
+        if (camposDeRegistros.camposDeRegistros(jTFCI, "cedula") &&
+            camposDeRegistros.camposDeRegistros(jTFNombresR, "nombre") &&
+            camposDeRegistros.camposDeRegistros(jTFApellidos, "apellidos") &&
+            camposDeRegistros.camposDeRegistros(jTFContrasenia, "contraseña")) { // Asegúrate de tener un caso "contraseña" en camposDeRegistros
+
+            // Crear un nuevo objeto Medico
+            Medico nuevoMedico = new Medico(nombres, apellidos, cedula, contrasenia);
+
+            // Registrar el médico usando MedicoController
+            MedicoController medicoController = new MedicoController();
+            medicoController.registrarMedico(nuevoMedico);
+
+            // Mostrar un mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Médico registrado exitosamente", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+
+            // Limpiar los campos de texto después del registro (opcional)
+            jTFCI.setText("");
+            jTFNombresR.setText("");
+            jTFApellidos.setText("");
+            jTFContrasenia.setText("");
+
+            // Actualizar la tabla de médicos (similar a como lo hacías con los pacientes)
+            refrescarTablaMedicos(); 
+        } 
+    }//GEN-LAST:event_jBGuardarMedicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -405,25 +454,24 @@ public class JFDoctor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jBGuardarMedico;
     private javax.swing.JLabel jLTipoCli;
     private javax.swing.JLabel jLTipoCli1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel71;
-    private javax.swing.JLabel jLabel73;
-    private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFApellidos;
+    private javax.swing.JTextField jTFBusquedaCI;
     private javax.swing.JTextField jTFCI;
-    private javax.swing.JTextField jTFCorreo;
-    private javax.swing.JTextField jTFDireccion;
+    private javax.swing.JTextField jTFContrasenia;
     private javax.swing.JTextField jTFNombresR;
-    private javax.swing.JTextField jTFTelefono;
+    private javax.swing.JTable jTMedicos;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

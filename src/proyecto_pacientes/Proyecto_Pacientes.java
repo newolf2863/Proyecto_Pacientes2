@@ -5,7 +5,7 @@
 package proyecto_pacientes;
 
 import Clases.*;
-import Controladores.AntecedentePatologicoController;
+import Controladores.*;
 import Controladores.*;
 import Vistas.Doctor.JFMenuDoctor;
 import java.util.List;
@@ -18,9 +18,9 @@ public class Proyecto_Pacientes {
 //        ConsultaController consultaController = new ConsultaController();
 //        MedicoController medicoController = new MedicoController();
 //
-//        //Crear el médico (asegúrate de que MedicoController tenga el método registrarMedico)
-//        Medico medico = new Medico("Juan", "Pérez", "123456789", "juan");
-//        medicoController.registrarMedico(medico);
+////        //Crear el médico (asegúrate de que MedicoController tenga el método registrarMedico)
+////        Medico medico = new Medico("Juan", "Pérez", "123456789", "juan");
+////        medicoController.registrarMedico(medico);
 //
 //        // Crear los pacientes (asegúrate de que PacienteController tenga el método registrarPaciente)
 //        Paciente paciente1 = new Paciente("María", "López", "987654321", "Femenino", "Calle A 123", "555-111-111", "maria@example.com");
@@ -39,6 +39,8 @@ public class Proyecto_Pacientes {
 //        Diagnostico diagnostico2 = new Diagnostico("K29.7", "Gastritis, no especificada");
 //        Tratamiento tratamiento2 = new Tratamiento("Omeprazol", "20 mg una vez al día");
 //
+//        
+//        Medico medico = new MedicoController().buscarMedicoPorCedula("1234567890");
 //        // Crear las consultas
 //        Consulta consulta1 = new Consulta("Dolor de garganta y fiebre", signosVitales1, examenFisico1, diagnostico1, tratamiento1, paciente1, medico);
 //        Consulta consulta2 = new Consulta("Malestar estomacal", signosVitales2, examenFisico2, diagnostico2, tratamiento2, paciente2, medico);
@@ -56,67 +58,84 @@ public class Proyecto_Pacientes {
 //        AntecedentePatologicoController antecedenteController = new AntecedentePatologicoController();
 //        
 //
-//        System.out.println("Paciente: " + pacientesResgistrados.get(0).getNombre());
-//        
-//        // Mostrar los detalles de cada consulta
-//        for (Consulta consulta : consultasRegistradas) {
-//    System.out.println("Paciente: " + consulta.getPaciente().getNombre() + " " + consulta.getPaciente().getApellidos());
-//    System.out.println("Médico: " + consulta.getMedico().getNombre() + " " + consulta.getMedico().getApellidos());
-//    System.out.println("Motivo de consulta: " + consulta.getMotivoConsulta());
-//    System.out.println("Signos vitales: " + 
-//            "Temperatura: " + consulta.getSignosVitales().getTemperatura()+ " " +
-//            "Peso: "+ consulta.getSignosVitales().getPeso() +" " +
-//            "Presion Arterial: "+ consulta.getSignosVitales().getPresionArterial() +" " +
-//            "Saturacion O2: "+consulta.getSignosVitales().getSaturacionOxigeno()); // Asegúrate de que SignosVitales tenga un método toString() adecuado
-//    System.out.println("Examen físico: " + consulta.getExamenFisico().getHallazgos());
-//    System.out.println("Diagnóstico: " + consulta.getDiagnostico().getCodigoCIE() + " - " + consulta.getDiagnostico().getDescripcion());
-//    System.out.println("Tratamiento: " + consulta.getTratamiento().getMedicacion() + " - " + consulta.getTratamiento().getPosologia());
-//    System.out.println("------------------------"); 
-//}
+////        System.out.println("Paciente: " + pacientesResgistrados.get(0).getNombre());
+////        
+////        // Mostrar los detalles de cada consulta
+////        for (Consulta consulta : consultasRegistradas) {
+////            System.out.println("Paciente: " + consulta.getPaciente().getNombre() + " " + consulta.getPaciente().getApellidos());
+////            System.out.println("Médico: " + consulta.getMedico().getNombre() + " " + consulta.getMedico().getApellidos());
+////            System.out.println("Motivo de consulta: " + consulta.getMotivoConsulta());
+////            System.out.println("Signos vitales: " + 
+////                    "Temperatura: " + consulta.getSignosVitales().getTemperatura()+ " " +
+////                    "Peso: "+ consulta.getSignosVitales().getPeso() +" " +
+////                    "Presion Arterial: "+ consulta.getSignosVitales().getPresionArterial() +" " +
+////                    "Saturacion O2: "+consulta.getSignosVitales().getSaturacionOxigeno()); // Asegúrate de que SignosVitales tenga un método toString() adecuado
+////            System.out.println("Examen físico: " + consulta.getExamenFisico().getHallazgos());
+////            System.out.println("Diagnóstico: " + consulta.getDiagnostico().getCodigoCIE() + " - " + consulta.getDiagnostico().getDescripcion());
+////            System.out.println("Tratamiento: " + consulta.getTratamiento().getMedicacion() + " - " + consulta.getTratamiento().getPosologia());
+////            System.out.println("------------------------"); 
+////        }
 //        
 //        AntecedentePatologico antecedente1_paciente1 = new AntecedentePatologico(diagnostico1.getCodigoCIE(), examenFisico1.getHallazgos(), paciente1);
 //        antecedenteController.registrarAntecedentePatologico(antecedente1_paciente1,null);
 //
 //        Diagnostico diagnostico2_paciente1 = new Diagnostico("I10", "Hipertensión esencial (primaria)");
-//ExamenFisico examenFisico2_paciente1 = new ExamenFisico("Presión arterial elevada");
-//AntecedentePatologico antecedente2_paciente1 = new AntecedentePatologico(diagnostico2_paciente1.getCodigoCIE(), examenFisico2_paciente1.getHallazgos(), paciente1);
-//antecedenteController.registrarAntecedentePatologico(antecedente2_paciente1,null);
+//        ExamenFisico examenFisico2_paciente1 = new ExamenFisico("Presión arterial elevada");
+//        AntecedentePatologico antecedente2_paciente1 = new AntecedentePatologico(diagnostico2_paciente1.getCodigoCIE(), examenFisico2_paciente1.getHallazgos(), paciente1);
+//        antecedenteController.registrarAntecedentePatologico(antecedente2_paciente1,null);
 //
 //
 //        AntecedentePatologico antecedente1_paciente2 = new AntecedentePatologico(diagnostico2.getCodigoCIE(), examenFisico2.getHallazgos(), paciente2);
-//antecedenteController.registrarAntecedentePatologico(antecedente1_paciente2,null);
+//        antecedenteController.registrarAntecedentePatologico(antecedente1_paciente2,null);
 //             
 //        
 //        
 //        
 //        
-//List<AntecedentePatologico> antecedentes = antecedenteController.obtenerAntecedentesRegistrados();
+//        List<AntecedentePatologico> antecedentes = antecedenteController.obtenerAntecedentesRegistrados();
 //
-//for (AntecedentePatologico antecedente : antecedentes) {
-//    System.out.println("Paciente: " + antecedente.getPaciente().getNombre() + " " + antecedente.getPaciente().getApellidos());
-//    System.out.println("Código CIE: " + antecedente.getEnfermedad()); // Recuerda que 'enfermedad' ahora almacena el código CIE
-//    System.out.println("Hallazgos: " + antecedente.getDescripcion()); // Recuerda que 'descripcion' ahora almacena los hallazgos
-//    System.out.println("------------------------");
-//}
+//        for (AntecedentePatologico antecedente : antecedentes) {
+//            System.out.println("Paciente: " + antecedente.getPaciente().getNombre() + " " + antecedente.getPaciente().getApellidos());
+//            System.out.println("Código CIE: " + antecedente.getEnfermedad()); // Recuerda que 'enfermedad' ahora almacena el código CIE
+//            System.out.println("Hallazgos: " + antecedente.getDescripcion()); // Recuerda que 'descripcion' ahora almacena los hallazgos
+//            System.out.println("------------------------");
+//        }
+//
+//        Paciente paciente = new Paciente("Juan", "Pérez", "123456789", "Masculino", "Calle Ejemplo 123", "1234567890", "juan@example.com");
+//        Paciente familiar = new Paciente("María", "Pérez", "987654321", "Femenino", "Otra Calle 456", "0987654321", "maria@example.com");
+//        Diagnostico diagnostico = new Diagnostico("J02.9", "Faringitis aguda, no especificada");
+//        ExamenFisico examenFisico = new ExamenFisico("Garganta inflamada, fiebre leve");
+//        Diagnostico diagnostico0 = new Diagnostico("J02.9", "Faringitis aguda, especificada");
+//        ExamenFisico examenFisico0 = new ExamenFisico("Garganta inflamada, fiebre");
+//
+//        AntecedentePatologico antecedente = new AntecedentePatologico(diagnostico.getCodigoCIE(), examenFisico.getHallazgos(), paciente);
+//        AntecedentePatologico antecedente0 = new AntecedentePatologico(diagnostico0.getCodigoCIE(), examenFisico0.getHallazgos(), familiar);
+//
+//
+//        AntecedentePatologicoController controlador = new AntecedentePatologicoController();
+//        controlador.registrarAntecedentePatologico(antecedente, familiar); // Se pasa el familiar como argumento
+//        controlador.registrarAntecedentePatologico(antecedente0, null);
 
-//     Paciente paciente = new Paciente("Juan", "Pérez", "123456789", "Masculino", "Calle Ejemplo 123", "1234567890", "juan@example.com");
-//Paciente familiar = new Paciente("María", "Pérez", "987654321", "Femenino", "Otra Calle 456", "0987654321", "maria@example.com");
-//Diagnostico diagnostico = new Diagnostico("J02.9", "Faringitis aguda, no especificada");
-//ExamenFisico examenFisico = new ExamenFisico("Garganta inflamada, fiebre leve");
-//Diagnostico diagnostico0 = new Diagnostico("J02.9", "Faringitis aguda, especificada");
-//ExamenFisico examenFisico0 = new ExamenFisico("Garganta inflamada, fiebre");
-//
-//AntecedentePatologico antecedente = new AntecedentePatologico(diagnostico.getCodigoCIE(), examenFisico.getHallazgos(), paciente);
-//AntecedentePatologico antecedente0 = new AntecedentePatologico(diagnostico0.getCodigoCIE(), examenFisico0.getHallazgos(), familiar);
-//
-//
-//AntecedentePatologicoController controlador = new AntecedentePatologicoController();
-//controlador.registrarAntecedentePatologico(antecedente, familiar); // Se pasa el familiar como argumento
-//controlador.registrarAntecedentePatologico(antecedente0, null);
-
-        //JFMenuDoctor menu = new JFMenuDoctor(medico);
-        //menu.setVisible(true);
+//        JFMenuDoctor menu = new JFMenuDoctor(medico);
+//        menu.setVisible(true);
         JFIngresar login = new JFIngresar();
         login.setVisible(true);
+
+//        ConsultaController consultaController = new ConsultaController();
+//
+//        // Datos para editar la consulta
+//        String cedulaPaciente = "1703691475";
+//        String cedulaMedico = "1234567890";
+//        String nuevoMotivoConsulta = "Dolor de cabeza intenso y mareos";
+//        SignosVitales nuevosSignosVitales = new SignosVitales(37.2, 75.5, 140/90, 97.0);
+//        ExamenFisico nuevoExamenFisico = new ExamenFisico("Pupilas dilatadas, sensibilidad a la luz");
+//        Diagnostico nuevoDiagnostico = new Diagnostico("G43.009", "Migraña sin aura, no especificada");
+//        Tratamiento nuevoTratamiento = new Tratamiento("Sumatriptán", "50 mg sublingual, repetir en 2 horas si es necesario");
+//
+//        // Editar la consulta
+//        consultaController.editarConsulta(cedulaPaciente, cedulaMedico, nuevoMotivoConsulta, nuevosSignosVitales, 
+//                                         nuevoExamenFisico, nuevoDiagnostico, nuevoTratamiento);
+
+        //consultaController.eliminarConsulta(cedulaPaciente, cedulaMedico);
     }
 }

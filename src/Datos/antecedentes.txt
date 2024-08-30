@@ -1,0 +1,11 @@
+987654321;J02.9;Garganta inflamada, fiebre leve;
+987654321;I10;Presión arterial elevada;
+456123789;K29.7;Dolor abdominal, náuseas;
+123456789;J02.9;Garganta inflamada, fiebre leve;987654321;
+987654321;J02.9;Garganta inflamada, fiebre;
+1500958069;J02.9;Garganta inflamada, fiebre;
+1500958069;A05;Ronchas y pus;
+1500958069;A00;Inflamacion;
+1500958069;B09;CAS;
+1500958069;B09;CAS;
+1500958069;A06;CEC;

@@ -1,9 +1,7 @@
 package Vistas.Secretaria;
 
-import Vistas.Doctor.*;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Window;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -15,8 +13,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 import Clases.*;
-import Vistas.Doctor.JFPacientesDoctor;
-import Vistas.Doctor.JPConsulta;
+import java.awt.Window;
+import proyecto_pacientes.JFIngresar;
 
 public class JFMenuSecretaria extends javax.swing.JFrame {
     // Vistas
@@ -180,7 +178,7 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
 
         jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel69.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel69.setText("Menu");
+        jLabel69.setText("Menu Secretaria");
         jPanel3.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, -1));
 
         PanelHome.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 20));
@@ -288,9 +286,9 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(178, 8, 55));
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 27)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Doctor");
+        jLabel1.setText("Secretaria/o");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel13.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 130, -1));
+        jPanel13.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 150, -1));
 
         jLabel2.setBackground(new java.awt.Color(178, 8, 55));
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -403,32 +401,19 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
     }// GEN-LAST:event_menuPacienteMouseClicked
 
     private void menuLogoutMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_menuLogoutMouseClicked
-        cambiarSeccionMenu(6);
-        getToolkit().beep();
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-//        if (SessionManager.getInstance().isCambiarSesion()) { // Accede a cambiarSesion a través del Singleton
-//            int dialogResult = JOptionPane.showConfirmDialog(null, "¿Estás seguro/a que quieres salir de esta cuenta?",
-//                    "Warning", dialogButton);
-//            if (dialogResult == JOptionPane.YES_OPTION) {
-//                // Crea una instancia del JFIngresar
-//                JFIngresar ingresarFrame = new JFIngresar();
-//                ingresarFrame.setVisible(true); // Muestra el JFIngresar
-//
-//                // Cierra todas las ventanas abiertas, excepto la nueva ventana ingresarFrame
-//                Window[] windows = Window.getWindows(); // Obtiene todas las ventanas abiertas
-//                for (Window window : windows) {
-//                    if (window != ingresarFrame) { // Cierra todas las ventanas menos la nueva
-//                        window.dispose();
-//                    }
-//                }
-//                dispose(); // Cierra el JFrame actual si es necesario (es opcional si ya has cerrado todas
-//                           // las demás ventanas)
-//            }
-//        } else {
-//            String mensaje = "Tienes una factura pendiente.";
-//            String titulo = "¡Aviso Crítico!";
-//            JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
-//        }
+        // Cerrar todas las ventanas abiertas por JFMenuSecretaria
+        for (Window window : Window.getWindows()) {
+            if (window instanceof JFrame && window.getOwner() == this) { // Verificar si es un JFrame y si su dueño es JFMenuSecretaria
+                window.dispose();
+            }
+        }
+
+        // Cerrar la ventana actual JFMenuSecretaria
+        this.dispose();
+
+        // Abrir la ventana JFIngresar
+        JFIngresar login = new JFIngresar();
+        login.setVisible(true);
     }// GEN-LAST:event_menuLogoutMouseClicked
 
     private void menuLogoutMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_menuLogoutMouseEntered
@@ -470,8 +455,8 @@ public class JFMenuSecretaria extends javax.swing.JFrame {
         contenido.show(panelContent, "card1");
         cambiarSeccionMenu(1);
         menuPaciente.setBackground(Color.decode("#494848"));
-        JFrame ventanaConsulta = new JPConsulta();
-        abrirFormHijo(ventanaConsulta);
+        JFrame ventanaDoctor = new JFDoctor();
+        abrirFormHijo(ventanaDoctor);
         jLInicio.setText("Paquetes");
     }// GEN-LAST:event_menuDoctorMouseClicked
 

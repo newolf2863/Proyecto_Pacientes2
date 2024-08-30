@@ -27,12 +27,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jInternalFrame1" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jInternalFrame2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jInternalFrame3" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jInternalFrame2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jInternalFrame3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -42,32 +41,27 @@
                   <Component id="jInternalFrame6" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="JTFCIPaciente1" min="-2" pref="160" max="-2" attributes="0"/>
-                                  <Component id="JTFCorreoPaciente" min="-2" pref="160" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Component id="JBGuardarConsulta" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="JBEnviarTratamiento" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="JBBuscarCorreo" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="JTFCorreoPaciente" pref="190" max="32767" attributes="0"/>
+                          <Component id="JTFCIPaciente1" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
           </Group>
           <Component id="jPanel3" max="32767" attributes="0"/>
       </Group>
@@ -100,7 +94,7 @@
                               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="JBGuardarConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="JBEnviarTratamiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="JBBuscarCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -427,9 +421,29 @@
         <Component class="javax.swing.JComboBox" name="JCBCodigoCIE">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
+              <StringArray count="22">
                 <StringItem index="0" value="selecci&#xf3;n"/>
-                <StringItem index="1" value=""/>
+                <StringItem index="1" value="A00"/>
+                <StringItem index="2" value="A01"/>
+                <StringItem index="3" value="A02"/>
+                <StringItem index="4" value="A03"/>
+                <StringItem index="5" value="A04"/>
+                <StringItem index="6" value="A05"/>
+                <StringItem index="7" value="A06"/>
+                <StringItem index="8" value="A07"/>
+                <StringItem index="9" value="A08"/>
+                <StringItem index="10" value="A09"/>
+                <StringItem index="11" value="B00"/>
+                <StringItem index="12" value="B01"/>
+                <StringItem index="13" value="B02"/>
+                <StringItem index="14" value="B03"/>
+                <StringItem index="15" value="B04"/>
+                <StringItem index="16" value="B05"/>
+                <StringItem index="17" value="B06"/>
+                <StringItem index="18" value="B07"/>
+                <StringItem index="19" value="B08"/>
+                <StringItem index="20" value="B09"/>
+                <StringItem index="21" value=" "/>
               </StringArray>
             </Property>
           </Properties>
@@ -520,6 +534,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar Consulta"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBGuardarConsultaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
@@ -529,6 +546,9 @@
     <Component class="javax.swing.JLabel" name="jLabel8">
     </Component>
     <Component class="javax.swing.JTextField" name="JTFCorreoPaciente">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JTFCorreoPacienteActionPerformed"/>
       </Events>
@@ -543,10 +563,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JTFCIPaciente1ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="JBEnviarTratamiento">
+    <Component class="javax.swing.JButton" name="JBBuscarCorreo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Enviar Tratamiento"/>
+        <Property name="text" type="java.lang.String" value="Buscar Correo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBBuscarCorreoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

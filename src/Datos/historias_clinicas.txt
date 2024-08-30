@@ -1,0 +1,2 @@
+1500958069;J02.9;Garganta inflamada, fiebre;;A05;Ronchas y pus;;A00;Inflamacion;;B09;CAS;;B09;CAS;;###;1500958069;1234567890;CAS;45.0;45.0;45.0;45.0;CAS;B09;CAS;CAS;CAS;
+1500958069;J02.9;Garganta inflamada, fiebre;;A05;Ronchas y pus;;A00;Inflamacion;;B09;CAS;;B09;CAS;;A06;CEC;;###;1500958069;1234567890;CEC;77.0;77.0;77.0;77.0;CEC;A06;CEC;CEC;CEC;

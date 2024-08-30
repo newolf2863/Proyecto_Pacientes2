@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 import Clases.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import proyecto_pacientes.JFIngresar;
 
 public class JFMenuDoctor extends javax.swing.JFrame {
     // Vistas
@@ -190,7 +194,7 @@ public class JFMenuDoctor extends javax.swing.JFrame {
         menuPaciente.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 16)); // NOI18N
         menuPaciente.setForeground(new java.awt.Color(255, 255, 255));
         menuPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/administracion.png"))); // NOI18N
-        menuPaciente.setText("Consulta Paciente");
+        menuPaciente.setText("Historial Paciente");
         menuPaciente.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         menuPaciente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menuPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -302,7 +306,7 @@ public class JFMenuDoctor extends javax.swing.JFrame {
         menuHistorial.setFont(new java.awt.Font("Leelawadee UI Semilight", 0, 16)); // NOI18N
         menuHistorial.setForeground(new java.awt.Color(255, 255, 255));
         menuHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8_Bar_Chart_32px.png"))); // NOI18N
-        menuHistorial.setText(" Historial Paciente");
+        menuHistorial.setText("Consulta Paciente");
         menuHistorial.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         menuHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menuHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -395,38 +399,30 @@ public class JFMenuDoctor extends javax.swing.JFrame {
         contenido.show(panelContent, "card1");
         cambiarSeccionMenu(0);
         menuPaciente.setBackground(Color.decode("#494848"));
-        JFrame ventanaPaciente = new JFPacientesDoctor();
+        JFrame ventanaPaciente = null;
+        try {
+            ventanaPaciente = new JFPacientesDoctor(medico);
+        } catch (IOException ex) {
+            Logger.getLogger(JFMenuDoctor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         abrirFormHijo(ventanaPaciente);
         jLInicio.setText("Paquetes");
     }// GEN-LAST:event_menuPacienteMouseClicked
 
     private void menuLogoutMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_menuLogoutMouseClicked
-        cambiarSeccionMenu(6);
-        getToolkit().beep();
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-//        if (SessionManager.getInstance().isCambiarSesion()) { // Accede a cambiarSesion a través del Singleton
-//            int dialogResult = JOptionPane.showConfirmDialog(null, "¿Estás seguro/a que quieres salir de esta cuenta?",
-//                    "Warning", dialogButton);
-//            if (dialogResult == JOptionPane.YES_OPTION) {
-//                // Crea una instancia del JFIngresar
-//                JFIngresar ingresarFrame = new JFIngresar();
-//                ingresarFrame.setVisible(true); // Muestra el JFIngresar
-//
-//                // Cierra todas las ventanas abiertas, excepto la nueva ventana ingresarFrame
-//                Window[] windows = Window.getWindows(); // Obtiene todas las ventanas abiertas
-//                for (Window window : windows) {
-//                    if (window != ingresarFrame) { // Cierra todas las ventanas menos la nueva
-//                        window.dispose();
-//                    }
-//                }
-//                dispose(); // Cierra el JFrame actual si es necesario (es opcional si ya has cerrado todas
-//                           // las demás ventanas)
-//            }
-//        } else {
-//            String mensaje = "Tienes una factura pendiente.";
-//            String titulo = "¡Aviso Crítico!";
-//            JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
-//        }
+        // Cerrar todas las ventanas abiertas por JFMenuSecretaria
+        for (Window window : Window.getWindows()) {
+            if (window instanceof JFrame && window.getOwner() == this) { // Verificar si es un JFrame y si su dueño es JFMenuSecretaria
+                window.dispose();
+            }
+        }
+
+        // Cerrar la ventana actual JFMenuSecretaria
+        this.dispose();
+
+        // Abrir la ventana JFIngresar
+        JFIngresar login = new JFIngresar();
+        login.setVisible(true);
     }// GEN-LAST:event_menuLogoutMouseClicked
 
     private void menuLogoutMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_menuLogoutMouseEntered
@@ -468,7 +464,7 @@ public class JFMenuDoctor extends javax.swing.JFrame {
         contenido.show(panelContent, "card1");
         cambiarSeccionMenu(1);
         menuPaciente.setBackground(Color.decode("#494848"));
-        JFrame ventanaConsulta = new JPConsulta();
+        JFrame ventanaConsulta = new JPConsulta(medico);
         abrirFormHijo(ventanaConsulta);
         jLInicio.setText("Paquetes");
     }// GEN-LAST:event_menuHistorialMouseClicked

@@ -4,14 +4,66 @@
  */
 package Vistas.Doctor;
 
+import Clases.AntecedentePatologico;
+import Clases.Consulta;
+import Clases.Diagnostico;
+import Clases.ExamenFisico;
+import Clases.HistoriaClinica;
+import Clases.Medico;
+import Clases.Paciente;
+import Clases.SignosVitales;
+import Clases.Tratamiento;
+import Controladores.AntecedentePatologicoController;
+import Controladores.ConsultaController;
+import Controladores.PacienteController;
+import Controladores.HistoriasClinicasController;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.IOException;
+import java.net.PasswordAuthentication;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import validaciones.ValidadorDeRegistros;
+
+//import javax.mail.*;
+//import javax.mail.internet.InternetAddress;
+//import javax.mail.internet.MimeMessage;
+//import java.util.Properties; 
+
 
 public class JPConsulta extends javax.swing.JFrame {
 
     /**
      * Creates new form JPConsulta
      */
-    public JPConsulta() {
+    private Medico medicoActual;
+    public JPConsulta(Medico medico) {
+        this.medicoActual = medico;
         initComponents();
+        
+    }
+    
+    // Método para mostrar el correo del paciente o limpiar el campo
+    private void mostrarCorreoPaciente() {
+        
+        String cedula = JTFCIPaciente1.getText();
+        Paciente paciente = new PacienteController().buscarPacientePorCedula(cedula);
+        
+        if (paciente.getCedula().equals(cedula)) {
+            JTFCorreoPaciente.setText(paciente.getCorreoElectronico());
+        }else {
+                JTFCorreoPaciente.setText(""); // Limpiar el campo si no se encuentra el paciente
+            }
     }
 
     /**
@@ -59,7 +111,7 @@ public class JPConsulta extends javax.swing.JFrame {
         JTFCorreoPaciente = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         JTFCIPaciente1 = new javax.swing.JTextField();
-        JBEnviarTratamiento = new javax.swing.JButton();
+        JBBuscarCorreo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -228,7 +280,7 @@ public class JPConsulta extends javax.swing.JFrame {
 
         jLabel14.setText("Descripción diagnostico");
 
-        JCBCodigoCIE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "selección", "" }));
+        JCBCodigoCIE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "selección", "A00", "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "B00", "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", " " }));
         JCBCodigoCIE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JCBCodigoCIEActionPerformed(evt);
@@ -308,9 +360,15 @@ public class JPConsulta extends javax.swing.JFrame {
         );
 
         JBGuardarConsulta.setText("Guardar Consulta");
+        JBGuardarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBGuardarConsultaActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("CI Paciente:");
 
+        JTFCorreoPaciente.setEnabled(false);
         JTFCorreoPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JTFCorreoPacienteActionPerformed(evt);
@@ -325,7 +383,12 @@ public class JPConsulta extends javax.swing.JFrame {
             }
         });
 
-        JBEnviarTratamiento.setText("Enviar Tratamiento");
+        JBBuscarCorreo.setText("Buscar Correo");
+        JBBuscarCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBBuscarCorreoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -336,35 +399,31 @@ public class JPConsulta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jInternalFrame1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jInternalFrame3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jInternalFrame3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jInternalFrame5)
                     .addComponent(jInternalFrame6))
                 .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel7))
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JTFCIPaciente1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(JTFCorreoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(78, 78, 78))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(JBGuardarConsulta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JBEnviarTratamiento)
-                        .addGap(38, 38, 38))))
+                        .addGap(18, 18, 18)
+                        .addComponent(JBBuscarCorreo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel7))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(JTFCorreoPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(JTFCIPaciente1))))
+                .addGap(62, 62, 62))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -392,7 +451,7 @@ public class JPConsulta extends javax.swing.JFrame {
                                 .addGap(56, 56, 56)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(JBGuardarConsulta)
-                                    .addComponent(JBEnviarTratamiento))
+                                    .addComponent(JBBuscarCorreo))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jInternalFrame6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -443,7 +502,92 @@ public class JPConsulta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_JTFCIPaciente1ActionPerformed
 
-    /**
+    private void JBGuardarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarConsultaActionPerformed
+        // Obtener datos del paciente
+        String cedulaPaciente = JTFCIPaciente1.getText();
+        String cedulaMedico = medicoActual.getCedula();
+        Paciente paciente = new PacienteController().buscarPacientePorCedula(cedulaPaciente);
+
+        if (paciente == null) {
+            JOptionPane.showMessageDialog(this, "Paciente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir si el paciente no existe
+        }
+
+        // Obtener datos de la consulta
+        String motivoConsulta = JTAMotivo.getText();
+        String hallazgos = JTAHallazgos.getText();
+        String descripcionDiagnostico = JTADescripcionDiagnostico.getText();
+        String codigoCIE = (String) JCBCodigoCIE.getSelectedItem(); // Asumiendo que JCBCodigoCIE es un JComboBox
+        String medicacion = JTFMedicacion.getText();
+        String posologia = JTFPosologia.getText();
+
+        // Crear objetos relacionados con la consulta
+        SignosVitales signosVitales = new SignosVitales(
+            Double.parseDouble(JTFTemperatura.getText()),
+            Double.parseDouble(JTFPeso.getText()),
+            Double.parseDouble(JTFPresionArterial.getText()),
+            Double.parseDouble(JTFSaturacionO2.getText())
+        );
+        ExamenFisico examenFisico = new ExamenFisico(hallazgos);
+        Diagnostico diagnostico = new Diagnostico(codigoCIE, descripcionDiagnostico);
+        Tratamiento tratamiento = new Tratamiento(medicacion, posologia);
+
+        // Crear la consulta
+        Consulta nuevaConsulta = new Consulta(motivoConsulta, signosVitales, examenFisico, diagnostico, tratamiento, paciente, medicoActual);
+
+        // Registrar la consulta
+        ConsultaController consultaController = new ConsultaController();
+        consultaController.editarConsulta(cedulaPaciente, cedulaMedico, motivoConsulta,
+                signosVitales, examenFisico, diagnostico, tratamiento ); // O el método que uses para guardar consultas
+
+        // Crear y registrar el nuevo AntecedentePatologico
+        AntecedentePatologico nuevoAntecedente = new AntecedentePatologico(
+            diagnostico.getCodigoCIE(), // Usar el código CIE de la consulta actual
+            examenFisico.getHallazgos(), // Usar los hallazgos del examen físico de la consulta actual
+            paciente
+        );
+        AntecedentePatologicoController antecedenteController = new AntecedentePatologicoController();
+        antecedenteController.registrarAntecedentePatologico(nuevoAntecedente, null);
+        
+        // Obtener o crear el historial clínico del paciente
+        HistoriasClinicasController historiasClinicasController = new HistoriasClinicasController();
+        HistoriaClinica historiaClinica = historiasClinicasController.obtenerHistoriaClinicaPorCedula(cedulaPaciente);
+        if (historiaClinica == null) {
+            // Si no existe, crear una nueva historia clínica
+            historiaClinica = new HistoriaClinica(paciente, new ArrayList<>(), new ArrayList<>());
+        }
+
+        // Agregar la nueva consulta al historial clínico
+        historiaClinica.getConsultas().add(nuevaConsulta);
+
+        // Obtener los antecedentes patológicos del paciente (puedes optimizar esto si ya los tienes en memoria)
+        //AntecedentePatologicoController antecedenteController = new AntecedentePatologicoController();
+        List<AntecedentePatologico> antecedentesPatologicos = null;
+        try {
+            antecedentesPatologicos = antecedenteController.obtenerAntecedentesPorPaciente(paciente);
+        } catch (IOException ex) {
+            Logger.getLogger(JPConsulta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Actualizar el historial clínico con los antecedentes (si es necesario)
+        historiaClinica.setAntecedentesPatologicos(antecedentesPatologicos);
+
+        // Registrar o actualizar el historial clínico
+        historiasClinicasController.registrarHistoriaClinica(historiaClinica);
+
+        
+        
+        // Mostrar mensaje de éxito
+        JOptionPane.showMessageDialog(this, "Consulta registrada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+    }//GEN-LAST:event_JBGuardarConsultaActionPerformed
+
+    private void JBBuscarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarCorreoActionPerformed
+        mostrarCorreoPaciente();
+    }//GEN-LAST:event_JBBuscarCorreoActionPerformed
+
+    
+        /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -470,16 +614,16 @@ public class JPConsulta extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JPConsulta().setVisible(true);
-            }
-        });
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new JPConsulta().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JBEnviarTratamiento;
+    private javax.swing.JButton JBBuscarCorreo;
     private javax.swing.JButton JBGuardarConsulta;
     private javax.swing.JComboBox<String> JCBCodigoCIE;
     private javax.swing.JTextArea JTADescripcionDiagnostico;
@@ -517,4 +661,33 @@ public class JPConsulta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
+
+    private void enviarCorreo(String correoPaciente, String asunto, String cuerpo) {
+//        // 1. Configuración de propiedades de JavaMail
+//        Properties props = new Properties();
+//        props.put("mail.smtp.auth", "true"); // Requiere autenticación
+//        props.put("mail.smtp.starttls.enable", "true"); // Habilitar TLS
+//        props.put("mail.smtp.host", "smtp.gmail.com"); // Servidor SMTP de Gmail (ajusta según tu proveedor)
+//        props.put("mail.smtp.port", "587"); // Puerto SMTP de Gmail (ajusta según tu proveedor)
+//
+//        // 2. Crear sesión de correo
+//        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication("issacdelacadena@gmail.com", "unsc2863@");   
+//     // Reemplaza con tus credenciales
+//            }
+//        });
+//
+//        // 3. Crear el mensaje
+//        Message message = new MimeMessage(session);
+//        message.setFrom(new InternetAddress("issacdelacadena@gmail.com")); // Reemplaza con tu correo
+//        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
+//        message.setSubject(asunto);
+//        message.setText(cuerpo);   
+//
+//
+//        // 4. Enviar el mensaje
+//        Transport.send(message);
+        
+    }
 }

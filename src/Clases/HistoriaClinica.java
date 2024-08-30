@@ -29,5 +29,10 @@ public class HistoriaClinica {
     public List<Consulta> getConsultas() {
         return consultas;
     }
+
+    public void setAntecedentesPatologicos(List<AntecedentePatologico> antecedentesPatologicos) {
+        this.antecedentesPatologicos = antecedentesPatologicos;
+    }
+    
     
 }

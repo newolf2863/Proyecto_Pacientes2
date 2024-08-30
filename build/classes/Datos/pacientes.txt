@@ -1,1 +1,5 @@
 Issac;dlc;1500958069;masculino;floresta;0983307662;issacdelacadena@gmail.com
+Milton;dlc;1703691475;masculino;Tena;0999999999;miltondlc@gmail.com
+KILL;KILL;1500559560;femenino;na;0995154884;kil@hotmail.com
+María;López;987654321;Femenino;Calle A 123;555-111-111;maria@example.com
+Carlos;Gómez;456123789;Masculino;Avenida B 456;555-222-222;carlos@example.com

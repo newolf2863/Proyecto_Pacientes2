@@ -55,6 +55,8 @@ public class ValidadorDeRegistros {
                     valor = validarCodigoCIE(texto); // Llama a la función para validar contra los 20 códigos CIE
             case "temperatura", "peso", "presionArterial", "saturacionOxigeno" ->
                     valor = validarMaximoDosDecimales(texto);
+            case "contraseña" ->
+                valor = texto.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{5,}$");
             case "vacio" ->
                     valor = !texto.isEmpty();
         }
@@ -74,8 +76,8 @@ public class ValidadorDeRegistros {
     public boolean camposDeRegistros(JComboBox comboBox, String caso) {
         boolean valor = false;
         Object selectedItem = comboBox.getSelectedItem(); 
-    String texto = (selectedItem != null) ? selectedItem.toString() : ""; // Convertir a String, manejar null
-    String mensaje = generarMensajeError(caso, texto);
+        String texto = (selectedItem != null) ? selectedItem.toString() : ""; // Convertir a String, manejar null
+        //String mensaje = generarMensajeError(caso, texto);
 
         // Realiza la validación según el caso
         switch (caso) {
