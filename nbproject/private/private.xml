@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Vistas/Doctor/TratamientoE.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Controladores/ConsultaController.java</file>
+            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/validaciones/ValidadorDeRegistros.java</file>
             <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Vistas/Doctor/JPConsulta.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Datos/consultas.txt</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Vistas/Doctor/JFPacientesDoctor.java</file>
-            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Clases/HistoriaClinica.java</file>
+            <file>file:/C:/Users/Issac/Documents/NetBeansProjects/Proyecto_Pacientes/src/Controladores/AntecedentePatologicoController.java</file>
         </group>
     </open-files>
 </project-private>
