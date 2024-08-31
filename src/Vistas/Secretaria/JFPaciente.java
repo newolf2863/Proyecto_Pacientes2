@@ -849,7 +849,7 @@ public class JFPaciente extends javax.swing.JFrame {
             jTFConMedicoApellido.setText(medico.getApellidos());
         } else {
             // Mostrar mensaje de error si el paciente no se encuentra
-            JOptionPane.showMessageDialog(this, "Paciente no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Medico no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
 
             jTFConMedicoNombre.setText("");
             jTFConMedicoApellido.setText("");

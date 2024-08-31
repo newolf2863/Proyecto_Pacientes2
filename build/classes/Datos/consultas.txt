@@ -1,5 +1,2 @@
 0401643838;1724231871;null;null;null;null;null;null;null;null;null;null
-1500958069;1726331166;Dolor ambodiminal		;36.3;62.3;107.0;85.0;Picmentación color marron en la piel	;A00;Rotura de vasos en la zona abodominal, manchas de moreton y sicratizacion;Umbral;8h
-1711353142;1724231871;null;null;null;null;null;null;null;null;null;null
-1703691475;1726331166;Fiebre, dolor en las articulaciones y jaqueca;37.4;61.0;129.0;75.0;Infeccion bacterial;B07;diagnosticoc;Ibuprofeno;8h
-1500958069;1726331166;KASA;36.0;36.0;36.0;36.0;KA;selección;NASA;NASA;12H
+

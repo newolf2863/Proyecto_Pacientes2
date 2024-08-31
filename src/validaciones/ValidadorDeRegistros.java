@@ -234,10 +234,10 @@ public class ValidadorDeRegistros {
             tooltipWindow.pack();
         }
 
-        // Calcula la ubicación correcta para mostrar el tooltip
-        Point location = textField.getLocationOnScreen();
-        tooltipWindow.setLocation(location.x + textField.getWidth(), location.y);
-        tooltipWindow.setVisible(true);
+//        // Calcula la ubicación correcta para mostrar el tooltip
+//        Point location = textField.getLocationOnScreen();
+//        tooltipWindow.setLocation(location.x + textField.getWidth(), location.y);
+//        tooltipWindow.setVisible(true);
     }
 
     public void hideTooltip() {
